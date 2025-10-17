@@ -1,0 +1,102 @@
+name: Auto Update All CL Scripts
+
+on:
+  schedule:
+    - cron: "10 * * * *"   # cl.py → هر ساعت در دقیقه 10
+    - cron: "20 * * * *"   # cl2.py → هر ساعت در دقیقه 20
+    - cron: "30 * * * *"   # cl3.py → هر ساعت در دقیقه 30
+    - cron: "45 * * * *"   # cl4.py → هر ساعت در دقیقه 45
+  workflow_dispatch:
+
+jobs:
+  cl:
+    name: Run cl.py
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run cl.py
+        run: python cl.py
+
+      - name: Commit and Push cl.py results
+        run: |
+          git config --global user.name "tepo80"
+          git config --global user.email "ahsan.tepo98@gmail.com"
+          git add test.txt almasi.txt || true
+          git commit -m "Auto update from cl.py" || echo "No changes to commit"
+          git push
+
+  cl2:
+    name: Run cl2.py
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run cl2.py
+        run: python cl2.py
+
+      - name: Commit and Push cl2.py results
+        run: |
+          git config --global user.name "tepo80"
+          git config --global user.email "ahsan.tepo98@gmail.com"
+          git add test2.txt almasi2.txt || true
+          git commit -m "Auto update from cl2.py" || echo "No changes to commit"
+          git push
+
+  cl3:
+    name: Run cl3.py
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run cl3.py
+        run: python cl3.py
+
+      - name: Commit and Push cl3.py results
+        run: |
+          git config --global user.name "tepo80"
+          git config --global user.email "ahsan.tepo98@gmail.com"
+          git add test3.txt almasi3.txt || true
+          git commit -m "Auto update from cl3.py" || echo "No changes to commit"
+          git push
+
+  cl4:
+    name: Run cl4.py
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run cl4.py
+        run: python cl4.py
+
+      - name: Commit and Push cl4.py results
+        run: |
+          git config --global user.name "tepo80"
+          git config --global user.email "ahsan.tepo98@gmail.com"
+          git add normal4.json final4.json || true
+          git commit -m "Auto update from cl4.py" || echo "No changes to commit"
+          git push

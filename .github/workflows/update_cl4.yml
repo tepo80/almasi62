@@ -1,0 +1,29 @@
+name: Auto Update cl4.py
+
+on:
+  schedule:
+    - cron: "45 * * * *"  # اجرای هر ساعت در دقیقه ۴۵
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run cl4.py
+        run: python cl4.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "tepo80"
+          git config --global user.email "ahsan.tepo98@gmail.com"
+          git add normal4.json final4.json || true
+          git commit -m "Auto update from cl4.py" || echo "No changes to commit"
+          git push

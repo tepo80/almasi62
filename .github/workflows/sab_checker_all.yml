@@ -1,0 +1,109 @@
+name: Sub Checker All
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */2 * * *"   # اجرای cl.py هر ۲ ساعت یک‌بار
+    - cron: "0 */3 * * *"   # اجرای cl2.py هر ۳ ساعت یک‌بار
+    - cron: "0 */6 * * *"   # اجرای cl3.py هر ۶ ساعت یک‌بار
+    - cron: "0 */8 * * *"   # اجرای cl4.py هر ۸ ساعت یک‌بار
+
+permissions:
+  contents: write
+
+jobs:
+  # ========================= cl.py =========================
+  cl-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: pip install requests psutil retrying PyYaml || echo "skip install"
+      - run: |
+          rm -f almasi.txt test.txt
+          timeout 180s python cl.py || echo "❌ cl.py failed or skipped"
+      - run: |
+          if [[ -s almasi.txt || -s test.txt ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add almasi.txt test.txt
+            git commit -m "auto update from cl.py [skip ci]" || echo "No changes"
+            git push || echo "skip push"
+          else
+            echo "⚠️ almasi.txt یا test.txt خالی یا موجود نیست، commit نشد"
+          fi
+
+  # ========================= cl2.py =========================
+  cl2-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: pip install requests psutil retrying PyYaml || echo "skip install"
+      - run: |
+          rm -f almasi.txt test.txt
+          timeout 180s python cl2.py || echo "❌ cl2.py failed or skipped"
+      - run: |
+          if [[ -s almasi.txt || -s test.txt ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add almasi.txt test.txt
+            git commit -m "auto update from cl2.py [skip ci]" || echo "No changes"
+            git push || echo "skip push"
+          else
+            echo "⚠️ almasi.txt یا test.txt خالی یا موجود نیست، commit نشد"
+          fi
+
+  # ========================= cl3.py =========================
+  cl3-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: pip install requests psutil retrying PyYaml || echo "skip install"
+      - run: |
+          rm -f almasi.json test.json
+          timeout 180s python cl3.py || echo "❌ cl3.py failed or skipped"
+      - run: |
+          if [[ -s almasi.json || -s test.json ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add almasi.json test.json
+            git commit -m "auto update from cl3.py [skip ci]" || echo "No changes"
+            git push || echo "skip push"
+          else
+            echo "⚠️ almasi.json یا test.json خالی یا موجود نیست، commit نشد"
+          fi
+
+  # ========================= cl4.py =========================
+  cl4-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: pip install requests psutil retrying PyYaml || echo "skip install"
+      - run: |
+          rm -f almasi2.json test2.json
+          timeout 180s python cl4.py || echo "❌ cl4.py failed or skipped"
+      - run: |
+          if [[ -s almasi2.json || -s test2.json ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add almasi2.json test2.json
+            git commit -m "auto update from cl4.py [skip ci]" || echo "No changes"
+            git push || echo "skip push"
+          else
+            echo "⚠️ almasi2.json یا test2.json خالی یا موجود نیست، commit نشد"
+          fi

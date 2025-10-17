@@ -1,0 +1,29 @@
+name: Auto Update cl2.py
+
+on:
+  schedule:
+    - cron: "15 * * * *"  # اجرا هر ساعت در دقیقه ۱۵
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run cl2.py script
+        run: python cl2.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "tepo80"
+          git config --global user.email "ahsan.tepo98@gmail.com"
+          git add test2.txt almasi2.txt || true
+          git commit -m "Auto update from cl2.py" || echo "No changes to commit"
+          git push

@@ -1,0 +1,118 @@
+name: Sub Checker All
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */2 * * *"   # هر ۲ ساعت → cl.py
+    - cron: "0 */3 * * *"   # هر ۳ ساعت → cl2.py
+    - cron: "0 */6 * * *"   # هر ۶ ساعت → cl3.py
+    - cron: "0 */8 * * *"   # هر ۸ ساعت → cl4.py
+
+permissions:
+  contents: write
+
+jobs:
+  cl-job:
+    if: github.event.schedule == '0 */2 * * *' || github.event_name == 'workflow_dispatch'
+    concurrency:
+      group: cl-job-${{ github.ref }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: pip install requests psutil retrying PyYAML || echo "skip install"
+      - run: |
+          rm -f almasi.txt test.txt
+          timeout 180s python cl.py || echo "❌ cl.py failed or skipped"
+      - run: |
+          if [[ -s almasi.txt || -s test.txt ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add almasi.txt test.txt
+            git commit -m "auto update from cl.py [skip ci]" || echo "No changes"
+            git push || echo "skip push"
+          else
+            echo "⚠️ almasi.txt یا test.txt خالی یا موجود نیست، commit نشد"
+          fi
+
+  cl2-job:
+    if: github.event.schedule == '0 */3 * * *' || github.event_name == 'workflow_dispatch'
+    concurrency:
+      group: cl2-job-${{ github.ref }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: |
+          rm -f almasi.txt test.txt
+          timeout 180s python cl2.py || echo "❌ cl2.py failed or skipped"
+      - run: |
+          if [[ -s almasi.txt || -s test.txt ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add almasi.txt test.txt
+            git commit -m "auto update from cl2.py [skip ci]" || echo "No changes"
+            git push || echo "skip push"
+          else
+            echo "⚠️ almasi.txt یا test.txt خالی یا موجود نیست، commit نشد"
+          fi
+
+  cl3-job:
+    if: github.event.schedule == '0 */6 * * *' || github.event_name == 'workflow_dispatch'
+    concurrency:
+      group: cl3-job-${{ github.ref }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: |
+          rm -f almasi.json test.json
+          timeout 180s python cl3.py || echo "❌ cl3.py failed or skipped"
+      - run: |
+          if [[ -s almasi.json || -s test.json ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add almasi.json test.json
+            git commit -m "auto update from cl3.py [skip ci]" || echo "No changes"
+            git push || echo "skip push"
+          else
+            echo "⚠️ almasi.json یا test.json خالی یا موجود نیست، commit نشد"
+          fi
+
+  cl4-job:
+    if: github.event.schedule == '0 */8 * * *' || github.event_name == 'workflow_dispatch'
+    concurrency:
+      group: cl4-job-${{ github.ref }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: |
+          rm -f almasi2.json test2.json
+          timeout 180s python cl4.py || echo "❌ cl4.py failed or skipped"
+      - run: |
+          if [[ -s almasi2.json || -s test2.json ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add almasi2.json test2.json
+            git commit -m "auto update from cl4.py [skip ci]" || echo "No changes"
+            git push || echo "skip push"
+          else
+            echo "⚠️ almasi2.json یا test2.json خالی یا موجود نیست، commit نشد"
+          fi

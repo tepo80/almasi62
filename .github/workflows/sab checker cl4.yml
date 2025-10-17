@@ -1,0 +1,32 @@
+name: Sub Checker cl4-
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */8 * * *"   # اجرای cl4.py هر ۸ ساعت
+
+permissions:
+  contents: write
+
+jobs:
+  cl4-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: |
+          rm -f almasi2.json test2.json
+          timeout 180s python cl4.py || echo "❌ cl4.py failed or skipped"
+      - run: |
+          if [[ -s almasi2.json || -s test2.json ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add almasi2.json test2.json
+            git commit -m "auto update from cl4.py [skip ci]" || echo "No changes"
+            git push || echo "skip push"
+          else
+            echo "⚠️ almasi2.json یا test2.json خالی یا موجود نیست، commit نشد"
+          fi

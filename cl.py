@@ -22,16 +22,16 @@ LINKS_PATH = [
     "https://raw.githubusercontent.com/tepo80/almasi62/main/trojan.txt",
     "https://raw.githubusercontent.com/tepo80/almasi62/main/ss.txt",
     "https://raw.githubusercontent.com/tepo80/almasi62/main/h2.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip10.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip20.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip30.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip40.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip50.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip60.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip70.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip80.txt",
-    "https://raw.githubusercontent.com/tepo80/almasi62/main/vip90.txt"
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah.txt",
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah10.txt",
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah20.txt",
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah30.txt",
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah40.txt",
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah50.txt",
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah60.txt",
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah70.txt",
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah80.txt",
+    "https://raw.githubusercontent.com/tepo80/almasi62/main/shah90.txt"
 ]
 
 MAX_THREADS = 20
